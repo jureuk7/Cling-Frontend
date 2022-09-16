@@ -1,30 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
-
-interface ILink {
-    path: string;
-    name: string;
-}
-
-const LinkData: ILink[] = [
-    { path: '/company', name: '기업탐색' },
-    { path: '/transfer', name: '유통구조' },
-    { path: '/product', name: '생산라인' },
-];
-
-interface IHeader {
-    modalView: boolean;
-    setModalView: any;
-}
 
 const Header: React.FC = () => {
-    const router = useRouter();
-    const logout = () => {
-        console.log('hi');
-        router.push('/login');
-    };
-
     return (
         <Container>
             <HeaderContainer>
@@ -32,24 +9,9 @@ const Header: React.FC = () => {
                     <img src="/images/logo.svg" alt="로고" />
                 </Logo>
                 <Actions>
-                    <LinkList>
-                        {LinkData.map((item, index) =>
-                            item.path === router.asPath ? (
-                                <li key={index}>
-                                    <ActiveLink href={item.path}>
-                                        {item.name}
-                                    </ActiveLink>
-                                </li>
-                            ) : (
-                                <li key={index}>
-                                    <Link href={item.path}>{item.name}</Link>
-                                </li>
-                            ),
-                        )}
-                    </LinkList>
                     <Action>
                         <SearchBar>
-                            <SearchInput placeholder="검색어를 입력해주세요" />
+                            <SearchInput placeholder="제품명 검색" />
                             <Icon className="material-symbols-rounded">
                                 Search
                             </Icon>
@@ -122,23 +84,12 @@ const Logo = styled.div`
 `;
 
 const Link = styled.a`
-    color: #a4a4a4;
+    color: #000000;
     font-size: 13px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     &:hover {
-        color: #000000;
-    }
-`;
-
-const ActiveLink = styled.a`
-    color: #383838;
-    font-size: 13px;
-    text-decoration: none;
-    cursor: pointer;
-    &:hover {
-        color: #383838;
     }
 `;
 
