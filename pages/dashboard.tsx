@@ -6,6 +6,14 @@ import Participation from '../components/participation';
 import Circulation from '../components/circulation';
 import axios, { AxiosResponse } from 'axios';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import TransparentCode from '../components/transparentCode';
+
+interface TransparentCodeType {
+    date: string;
+    qrcodeImage: string;
+    companyTitle: string;
+    companyLogo: string;
+}
 
 interface Menu {
     pipeline: number | null;
@@ -58,6 +66,7 @@ interface Pipeline {
     // 파이프라인 로고 url
     circulations: CirculationType[][];
     // 유통 구조(CirculationType Array)
+    transparentCodeList: TransparentCodeType[];
 }
 
 const menuList = ['제품 개요', '유통 과정', '투명화', '설정'];
@@ -343,17 +352,38 @@ const DashBoard: NextPage = () => {
                                     </ProductCirculationContainer>
                                 )}
                                 {selectedMenu.menu == '투명화' && (
-                                    <ProductOverviewContainer>
-                                        <ProductOverview>
-                                            <ProductImage
-                                                src={
-                                                    pipelines[
-                                                        selectedMenu.pipeline
-                                                    ].logo
-                                                }
-                                            />
-                                        </ProductOverview>
-                                    </ProductOverviewContainer>
+                                    <ProductTransparentContainer>
+                                        <Button3>
+                                            <div className="material-symbols-rounded">
+                                                Add
+                                            </div>
+                                            투명화 코드 생성
+                                        </Button3>
+                                        <TransparentCodeList>
+                                            {pipelines[
+                                                selectedMenu.pipeline
+                                            ].transparentCodeList.map(
+                                                (
+                                                    item: TransparentCodeType,
+                                                    index: number,
+                                                ) => (
+                                                    <TransparentCode
+                                                        companyLogo={
+                                                            item.companyLogo
+                                                        }
+                                                        date={item.date}
+                                                        companyTitle={
+                                                            item.companyTitle
+                                                        }
+                                                        qrcodeImage={
+                                                            item.qrcodeImage
+                                                        }
+                                                        key={index}
+                                                    />
+                                                ),
+                                            )}
+                                        </TransparentCodeList>
+                                    </ProductTransparentContainer>
                                 )}
                                 {selectedMenu.menu === '설정' && (
                                     <ProductOverviewContainer>
@@ -376,6 +406,19 @@ const DashBoard: NextPage = () => {
         </DashBoardContainer>
     );
 };
+
+const TransparentCodeList = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+`;
+
+const ProductTransparentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    margin-top: 16px;
+`;
 
 const ProductCirculations = styled.div`
     display: flex;
@@ -482,6 +525,25 @@ const Button2 = styled.div`
     &:hover {
         color: #8cce91;
         background: #dfede1;
+    }
+`;
+
+const Button3 = styled.div`
+    font-weight: 600;
+    font-size: 13px;
+    color: #ffffff;
+    padding: 6px 8px;
+    background: #8fd894;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    width: 120px;
+    gap: 6px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        background-color: #8cce91;
+        color: #e8e8e8;
     }
 `;
 

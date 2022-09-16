@@ -72,13 +72,13 @@ const data = [
             '새콤달콤 시원한 간식, 기분 좋은 여유를 선사하는 빙과예요. 망고농축퓨레 등을 넣어... 내용 내용 내용 내용 내용',
     },
     {
-        productLogo: 'http://assabeer.com/web/product/small/a_83.jpg',
+        productLogo: 'https://t1.daumcdn.net/cfile/tistory/993ED0425B753A740A',
         productName: '델몬트 망고바',
         description:
             '새콤달콤 시원한 간식, 기분 좋은 여유를 선사하는 빙과예요. 망고농축퓨레 등을 넣어... 내용 내용 내용 내용 내용',
     },
     {
-        productLogo: 'http://assabeer.com/web/product/small/a_83.jpg',
+        productLogo: 'https://t1.daumcdn.net/cfile/tistory/993ED0425B753A740A',
         productName: '델몬트 망고바',
         description:
             '새콤달콤 시원한 간식, 기분 좋은 여유를 선사하는 빙과예요. 망고농축퓨레 등을 넣어... 내용 내용 내용 내용 내용',
