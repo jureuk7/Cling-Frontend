@@ -68,8 +68,9 @@ const menuDescription = [
     '제품에 발급된 투명화 코드를 확인할 수 있습니다',
     '설정 설명.',
 ];
+
 const getPipelines = () => {
-    return axios.get('http://localhost:3000/api/hello').then((response) => {
+    return axios.get('http://localhost:3000/api/pipelines').then((response) => {
         console.log(response.data);
         return response.data;
     });
@@ -85,11 +86,7 @@ export async function getServerSideProps() {
     };
 }
 
-interface DashboardProps {
-    pipeline: Pipeline[];
-}
-
-const DashBoard: NextPage<DashboardProps> = (props) => {
+const DashBoard: NextPage = () => {
     const { data } = useQuery(['pipelines'], getPipelines);
     const [pipelines, setPipelines] = useState<Pipeline[]>(data);
     const [searchInput, setSearchInput] = useState<string>('');

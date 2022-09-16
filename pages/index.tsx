@@ -1,10 +1,16 @@
 import type { NextPage } from 'next';
 import Header from '../components/layout/Header';
 import styled from '@emotion/styled';
-import { QueryClient, dehydrate } from '@tanstack/react-query';
+import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import Product from '../components/product';
 
-const getPipelines = () => {
+interface ProductType {
+    productName: string;
+    productLogo: string;
+    description: string;
+}
+const getProducts = () => {
     return axios.get('http://localhost:3000/api/products').then((response) => {
         console.log(response.data);
         return response.data;
@@ -13,7 +19,7 @@ const getPipelines = () => {
 
 export async function getServerSideProps() {
     const queryClient = new QueryClient();
-    await queryClient.prefetchQuery(['products'], getPipelines);
+    await queryClient.prefetchQuery(['products'], getProducts);
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
@@ -21,7 +27,8 @@ export async function getServerSideProps() {
     };
 }
 
-const Home: NextPage = (prop) => {
+const Home: NextPage = () => {
+    const { data } = useQuery(['products'], getProducts);
     return (
         <Container>
             <Header />
@@ -55,7 +62,14 @@ const Home: NextPage = (prop) => {
                     </SearchBar>
                 </HomeAction>
                 <ProductList>
-                    {)}
+                    {data.map((item: ProductType, index: number) => (
+                        <Product
+                            productLogo={item.productLogo}
+                            productName={item.productName}
+                            key={index}
+                            description={item.description}
+                        />
+                    ))}
                 </ProductList>
             </HomeContainer>
         </Container>
@@ -66,6 +80,7 @@ const ProductList = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 44px;
+    margin-top: 72px;
 `;
 
 const DropDown = styled.div`

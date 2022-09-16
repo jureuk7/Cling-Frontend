@@ -53,7 +53,6 @@ const ProductBox = styled.div`
     width: 464px;
     background: #ffffff;
     border: 2px solid #f5f5f5;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.02);
     border-radius: 16px;
 `;
 
